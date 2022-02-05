@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 //import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveRobot;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ArmCommand;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -32,7 +33,7 @@ public class RobotContainer {
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   public static DriveRobot m_driveRobot = new DriveRobot();
-  //public static ArmCommand m_armCommand = new ArmCommand();
+  public static ArmCommand m_armCommand = new ArmCommand();
 
   //OI Objects and Hardware
   //public static Joystick m_stick = new Joystick(Constants.c_joystick);
@@ -46,7 +47,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     m_driveTrain.setDefaultCommand(m_driveRobot);
-    //m_arm.setDefaultCommand(m_armCommand)
+    m_arm.setDefaultCommand(m_armCommand);
   }
 
   /**

@@ -7,13 +7,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.Constants;
-//import frc.robot.Robot;
+//import frc.robot.Robot; 
 import frc.robot.subsystems.Arm;
 
 public class ArmCommand extends CommandBase {
-  double leftInput = RobotContainer.m_xbox.getRawAxis(Constants.c_leftTriggerAxis);
-  double rightInput = RobotContainer.m_xbox.getRawAxis(Constants.c_rightTriggerAxis);
-  double sumInput = -leftInput + rightInput;
+  
   double armSpeed;
 
   //SmartDashboard.putNumber("Arm Encoder Get Distance", Arm.armEncoder.getDistance());
@@ -30,12 +28,17 @@ public class ArmCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    
+  double leftInput = RobotContainer.m_xbox.getRawAxis(Constants.c_leftTriggerAxis);
+  double rightInput = RobotContainer.m_xbox.getRawAxis(Constants.c_rightTriggerAxis);
+  double sumInput = -leftInput + rightInput;
+
     if ((Math.abs(Arm.armEncoder.getDistance()) > 0 && Math.abs(Arm.armEncoder.getDistance()) <= 20)
       || (Math.abs(Arm.armEncoder.getDistance()) >= 100 && Math.abs(Arm.armEncoder.getDistance()) < 120)) {
       armSpeed = (Constants.c_armSpeed/2) * sumInput;
     } else {
-      armSpeed = Constants.c_armSpeed * sumInput;
-    }
+      armSpeed = Constants.c_armSpeed * sumInput; 
+    } 
     RobotContainer.m_arm.move(armSpeed);
   }
 
