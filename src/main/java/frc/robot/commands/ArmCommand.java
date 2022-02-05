@@ -33,9 +33,9 @@ public class ArmCommand extends CommandBase {
   double rightInput = RobotContainer.m_xbox.getRawAxis(Constants.c_rightTriggerAxis);
   double sumInput = -leftInput + rightInput;
 
-    if ((Math.abs(Arm.armEncoder.getDistance()) > 0 && Math.abs(Arm.armEncoder.getDistance()) <= 20)
-      || (Math.abs(Arm.armEncoder.getDistance()) >= 100 && Math.abs(Arm.armEncoder.getDistance()) < 120)) {
-      armSpeed = (Constants.c_armSpeed/2) * sumInput;
+    if ((Math.abs(Arm.armEncoder.getDistance()) > 0 && Math.abs(Arm.armEncoder.getDistance()) <= 5)
+      || (Math.abs(Arm.armEncoder.getDistance()) >= 18 && Math.abs(Arm.armEncoder.getDistance()) < 30)) {
+      armSpeed = (Constants.c_armSpeed/5) * sumInput;
     } else {
       armSpeed = Constants.c_armSpeed * sumInput; 
     } 
