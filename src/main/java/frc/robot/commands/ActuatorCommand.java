@@ -11,7 +11,7 @@ import frc.robot.RobotContainer;
 /** An example command that uses an example subsystem. */
 public class ActuatorCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-
+    private boolean position = false;
   /**
    * Creates a new ExampleCommand.
    *
@@ -28,7 +28,13 @@ public class ActuatorCommand extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+      if (position) {
+        RobotContainer.actuator.move(1);
+      } else {
+        RobotContainer.actuator.move(-1);
+      }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
