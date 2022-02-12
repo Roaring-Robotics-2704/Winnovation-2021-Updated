@@ -30,4 +30,15 @@ public final class Constants {
     public static int c_rightJoystickAxis = 1;
     public static int c_leftTriggerAxis = 3;
     public static int c_rightTriggerAxis = 2;
+
+    // PID
+    public static double kP = 1.0;
+    public static double kI = 0.0;
+    public static double kD = 0.0;
+    public static double kMinAngle = 1.0; 
+    public static double kStatic = 0.0;
+    public static double kGravity = 0.0;
+    public static double kVolts = 0.0;
+    public static int kAngleTolerance = 3;
+    public static double kEncoderDistancePerPulse = 1.0;
 }
