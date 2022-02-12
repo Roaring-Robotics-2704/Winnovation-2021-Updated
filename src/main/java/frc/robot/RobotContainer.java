@@ -7,13 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 //import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.DriveRobot;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.ArmCommand;
-import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 
 //import edu.wpi.first.wpilibj.Joystick;
 //import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -30,14 +27,17 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   public static DriveTrain m_driveTrain = new DriveTrain();
   public static Arm m_arm = new Arm();
+  public static Actuator actuator = new Actuator();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   public static DriveRobot m_driveRobot = new DriveRobot();
   public static ArmCommand m_armCommand = new ArmCommand();
+  public static ActuatorCommand actuatorCommand = new ActuatorCommand();
 
   //OI Objects and Hardware
   //public static Joystick m_stick = new Joystick(Constants.c_joystick);
   public static XboxController m_xbox = new XboxController(Constants.c_xbox);
+  public static JoystickButton actuatorButton = new JoystickButton(m_xbox, 2);
   //public static JoystickButton m_armUpButton = new JoystickButton(m_xbox, Constants.c_leftTrigger);
   //public static JoystickButton m_armDownButton = new JoystickButton(m_xbox, Constants.c_rightTrigger);
   //public static XboxController m_controller = new XboxController(Constants.c_joystick);
@@ -59,6 +59,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
    // m_armUpButton.whileHeld(new ArmDown());
     //m_armDownButton.whileHeld(new ArmDown());
+    actuatorButton.whenPressed(new ActuatorCommand());
   }
 
   /**

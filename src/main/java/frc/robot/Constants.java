@@ -30,4 +30,5 @@ public final class Constants {
     public static int c_rightJoystickAxis = 1;
     public static int c_leftTriggerAxis = 3;
     public static int c_rightTriggerAxis = 2;
+    
 }
