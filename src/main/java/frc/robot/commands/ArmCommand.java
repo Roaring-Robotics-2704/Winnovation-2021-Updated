@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -15,6 +16,7 @@ import frc.robot.subsystems.Arm;
 
 public class ArmCommand extends CommandBase {
   
+  double setpoint = 0;
   double armSpeed;
   
   PIDController pid = new PIDController(Constants.kP, Constants.kI, Constants.kD);
@@ -29,28 +31,44 @@ public class ArmCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    setpoint = 5;
     //Arm.armEncoder.reset();
   }
 
-  public void setSetPoint(int setpoint) {
-  }
+
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-  double leftInput = RobotContainer.m_xbox.getRawAxis(Constants.c_leftTriggerAxis);
-  double rightInput = RobotContainer.m_xbox.getRawAxis(Constants.c_rightTriggerAxis);
-  double sumInput = -leftInput + rightInput;
 
-  //  if ((Math.abs(Arm.armEncoder.getDistance()) > 0 && Math.abs(Arm.armEncoder.getDistance()) <= 5)
-  //   || (Math.abs(Arm.armEncoder.getDistance()) >= 18 && Math.abs(Arm.armEncoder.getDistance()) < 20)) {
-  //armSpeed = (Constants.c_armSpeed/5) * sumInput;
-  armSpeed = pid.calculate(RobotContainer.m_arm.armEncoder.getDistance(), 20);
-  SmartDashboard.putNumber("armSpeed", armSpeed);
-  //  } else {
-  //    armSpeed = (Constants.c_armSpeed/2) * sumInput; 
-  //  } 
+    Boolean button_up = RobotContainer.m_setPointUp.get();
+    Boolean button_down = RobotContainer.m_setPointDown.get();
+    
+    SmartDashboard.putBoolean("button_up", button_up);
+    SmartDashboard.putBoolean("button_down", button_down);
+    System.out.println("up: " + button_up.toString() + "down: " + button_down.toString());
+    if(button_up){
+      setpoint = setpoint + 5/50;
+    }
+    if(button_down){
+      setpoint = setpoint - 5/50;
+    }
+
+    setpoint = MathUtil.clamp(setpoint, 5, 20);
+
+    //double leftInput = RobotContainer.m_xbox.getRawAxis(Constants.c_leftTriggerAxis);
+    //double rightInput = RobotContainer.m_xbox.getRawAxis(Constants.c_rightTriggerAxis);
+    //double sumInput = -leftInput + rightInput;
+
+    //  if ((Math.abs(Arm.armEncoder.getDistance()) > 0 && Math.abs(Arm.armEncoder.getDistance()) <= 5)
+    //   || (Math.abs(Arm.armEncoder.getDistance()) >= 18 && Math.abs(Arm.armEncoder.getDistance()) < 20)) {
+    //armSpeed = (Constants.c_armSpeed/5) * sumInput;
+    armSpeed = pid.calculate(Arm.armEncoder.getDistance(), setpoint);
+    SmartDashboard.putNumber("setpoint", setpoint);
+    
+    //  } else {
+    //    armSpeed = (Constants.c_armSpeed/2) * sumInput; 
+    //  } 
     RobotContainer.m_arm.move(-armSpeed);
   }
 
@@ -62,7 +80,7 @@ public class ArmCommand extends CommandBase {
   @Override
   public boolean isFinished() {
     //return !RobotContainer.m_armDownButton.get() || 
-     // Math.abs(Arm.armEncoder.getDistance()) <=0 || Math.abs(Arm.armEncoder.getDistance()) >= 1000;
+    //Math.abs(Arm.armEncoder.getDistance()) <=0 || Math.abs(Arm.armEncoder.getDistance()) >= 1000;
      
     return false;
   }

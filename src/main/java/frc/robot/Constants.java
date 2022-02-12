@@ -32,7 +32,7 @@ public final class Constants {
     public static int c_rightTriggerAxis = 2;
 
     // PID
-    public static double kP = 1.0;
+    public static double kP = 0.5;
     public static double kI = 0.0;
     public static double kD = 0.0;
     public static double kMinAngle = 1.0; 
